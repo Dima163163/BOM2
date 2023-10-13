@@ -10,19 +10,27 @@ const createParagraph = () => {
   document.querySelector('body').append(p);
 };
 
-const showText = () => {
-  document.querySelector('input').addEventListener('blur', () => {
-    setTimeout(() => {
-      document.querySelector('p').textContent =
-      document.querySelector('input').value;
-    }, 300);
-  });
+const debounce = (func, timeoutMs) => {
+  let timeout;
+  return function() {
+    const context = this;
+    const args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func.apply(context, args), timeoutMs);
+  };
 };
+
+const showText = () => {
+  document.querySelector('p').textContent =
+  document.querySelector('input').value;
+};
+
 
 const init = () => {
   createInput();
   createParagraph();
-  showText();
+  const debounceUpdate = debounce(showText, 300);
+  document.querySelector('input').addEventListener('input', debounceUpdate);
 };
 
 init();
