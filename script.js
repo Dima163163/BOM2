@@ -7,7 +7,7 @@ const createInput = () => {
 
 const createParagraph = () => {
   const p = document.createElement('p');
-  document.querySelector('body').append(p)
+  document.querySelector('body').append(p);
 };
 
 const showText = () => {
